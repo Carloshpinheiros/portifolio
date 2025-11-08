@@ -1,243 +1,204 @@
+body {
+    background-color: black;
+    color: #09ff00; /* Cor padrão para textos */
+    font-family: "Courier New", Courier, monospace;
+    overflow-x: hidden; /* Previne scroll horizontal */
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+}
 
+/* --- CABEÇALHO COM ANIMAÇÃO "TYPING" --- */
 .nm {
-    width: 70%; 
+    width: 70%;
     margin: 0 auto;
-
     font-weight: bold;
-    font-size: 12vh;
+    /* * Usando clamp() para a fonte ser responsiva:
+     * Mínimo: 3rem (aprox 48px)
+     * Preferido: 10vw (10% da largura da tela)
+     * Máximo: 7rem (aprox 112px)
+     * O 'vh' original (12vh) fica muito grande em celulares.
+    */
+    font-size: clamp(3rem, 10vw, 7rem);
     text-align: center;
     color: #09ff00;
-
-    font-family: "Courier New", Courier, monospace;
     overflow: hidden;
     white-space: nowrap;
-    letter-spacing: .15em; 
-    
+    letter-spacing: .15em;
 
+    /* A animação original está ótima! */
     animation:
         typing 3.5s steps(30, end) infinite,
         blink-caret .75s step-end infinite;
 }
 
-
+/* Animações Originais */
 @keyframes typing {
     from { width: 0 }
-    to { width: 100% } 
+    to { width: 100% }
 }
-
 
 @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: orange }
 }
 
-
-
-
-body{
-
-    
- 
-
-background-color:black ;
-
-
-
-}
-
-
-  
-
-   
-
-
-body{
-   
-    overflow-x: hidden; 
-    overflow-y: scroll; 
-}
-
-
-
-.ola{
-    
- 
+/* --- SUBTÍTULOS --- */
+.ola {
     margin-top: 10vh;
-    color:#09ff00;
-    
-  
+    color: #09ff00;
     font-weight: bold;
-    font-size: 8vh;
+    /* Fonte responsiva também para o subtítulo */
+    font-size: clamp(2rem, 8vw, 5rem);
     text-align: center;
-
-    
 }
 
-
-
-.ola2{
-   
-  
-    color: rgb(0, 0, 0);
-    
- 
+.ola2 {
+    /* Este seletor estava com cor preta, escondendo-o. */
+    /* Se ele deve ser visível, mude a cor. */
+    color: #09ff00; /* ou antiquewhite, etc. */
     font-weight: bold;
-    font-size: 8vh;
+    font-size: clamp(1.5rem, 6vw, 4rem);
     text-align: center;
-    
 }
 
-
+/* --- IMAGEM CENTRAL --- */
 .eu img {
-    width: 300px; 
-    height: auto; 
+    /* * Isso faz a imagem ser responsiva:
+     * - Nunca passará de 300px.
+     * - Em telas menores, ocupará 80% da largura.
+    */
+    max-width: 300px;
+    width: 80%;
+    height: auto;
     display: block;
-    margin: 0 auto; 
+    margin: 15vh auto 0 auto; /* Reduzi a margem superior para caber melhor */
     border-radius: 10px;
-    margin-top: 25vh; 
 }
 
-.foot{
+/* --- SEÇÃO DE HABILIDADES (Refatorada com Flexbox) --- */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap; /* Isso faz os itens quebrarem para a linha de baixo em telas pequenas */
+    justify-content: center; /* Centraliza os itens */
+    gap: 20px; /* Espaçamento entre os itens */
+    width: 90%;
+    margin: 10vh auto; /* Espaçamento automático */
+    color: beige;
+}
 
+/* Estilo unificado para os itens de skill */
+.roteador, .css, .sql, .hard, .c {
+    /* Removemos todas as margens problemáticas */
+    /* Adicionamos um pouco de padding para visual */
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    text-align: center;
+    flex-grow: 1; /* Faz com que cresçam para preencher o espaço */
+    flex-basis: 100px; /* Largura mínima antes de quebrar */
+}
+
+/* --- BOTÕES SOCIAIS (Refatorados com Flexbox) --- */
+.social-container {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 10vh auto;
+    padding: 0 2%;
+}
+
+/* Estilo base para todos os botões */
+.buttoneu, .buttong, .buttoni, .button {
+    /* Removemos todas as margens problemáticas */
+}
+
+/* Estilo base para as IMAGENS dos botões */
+.buttoneu img, .buttong img, .buttoni img, .button img {
+    width: 60px; /* Tamanho unificado */
+    height: auto;
+    border-radius: 50%; /* Deixando circular para um look mais limpo */
+    transition: transform 0.2s;
+}
+
+/* Efeito hover simples */
+.buttoneu img:hover, .buttong img:hover, .buttoni img:hover, .button img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Este botão fica na esquerda */
+.buttoneu {
+    margin-right: auto; /* MÁGICA DO FLEXBOX: Empurra todo o resto para a direita */
+}
+
+/* Estes botões ficam agrupados na direita */
+.buttong, .buttoni, .button {
+    margin-left: 15px; /* Espaçamento entre os botões da direita */
+}
+
+/* --- RODAPÉ --- */
+.foot {
     color: antiquewhite;
-  margin-top: 10%;
-  background-color: rgb(106, 106, 106);
-  width: 207vh;
-  height: 30vh;
-  text-align : center;
- 
+    margin-top: 10%;
+    background-color: rgb(106, 106, 106);
+    /* * 'vh' para largura estava quebrando o layout.
+     * Usamos 100% para ocupar a largura toda.
+    */
+    width: 100%;
+    min-height: 20vh; /* 'min-height' é mais seguro que 'height' */
+    text-align: center;
+    padding: 20px 0; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
 
+/* --- MEDIA QUERY (Ajustes para telas pequenas) --- */
+@media (max-width: 768px) {
+    /* Ajustes finos para tablets e celulares grandes */
 
+    .nm {
+        /* A animação de "typing" precisa de menos passos em telas menores */
+        animation:
+            typing 3.5s steps(20, end) infinite,
+            blink-caret .75s step-end infinite;
+        letter-spacing: .1em;
+        width: 90%;
+    }
 
+    .eu img {
+        margin-top: 10vh;
+    }
 
+    /* Centraliza todos os botões sociais em telas menores */
+    .social-container {
+        flex-direction: column; /* Coloca em coluna */
+        gap: 20px; /* Espaçamento vertical */
+    }
 
+    .buttoneu {
+        margin-right: 0; /* Reseta a margem mágica */
+        order: -1; /* Coloca o botão "eu" no topo */
+    }
+
+    .buttong, .buttoni, .button {
+        margin-left: 0; /* Reseta margens laterais */
+    }
 }
 
 @media (max-width: 600px) {
-  .foot {
-    width: 54vh;
-    height: 30vh;
-  }
-  .nm{
-    margin-top: 10%;
-   font-size: 8vh;
+    /* * O seu media query original, mas ajustado para as novas regras 
+    */
+    .nm {
+        margin-top: 10%;
+        /* O clamp() já cuida do tamanho, mas podemos ajustar */
+        font-size: clamp(2.5rem, 10vw, 5rem);
+    }
 
-  }
-  .ola{
-    font-size: 5vh;
-    margin-top: 3%;
-    
+    .ola {
+        font-size: clamp(1.5rem, 8vw, 3rem);
+        margin-top: 5%;
+    }
 
-  }
-  .eu img{
-    margin-top: 5%;
-  }
-}
-
-
-
-
-
-
-.roteador{
-   
-    margin-right: 80%;
-    font-size: arial;
-    color: beige;
-  margin-left: 20vh;
-    
-}
-.css{
-  margin-left: text -13vh;
-    font-size: arial;
-    color: beige;
-  margin-left: 20vh;
-    margin-top: -10%;
-    margin-left: 60vh;
-}
-.sql{
-    margin-left: text -90vh;
-    font-size: arial;
-    color: beige;
-    margin-top: -8%;
-    margin-left: 90vh;
-}
-.hard{
-    margin-left: text -12vh;
-    font-size: arial;
-    color: beige;
-    margin-top: -10%;
-    margin-left: 120vh;
-}
-
-
-.c{
-
-  margin-left: text 40vh;
-    font-size: arial;
-    color: beige;
-    margin-top: -10%;
-    margin-left: 150vh;
-
-}
-
-.button img{
-    width: 50px; 
-border-radius: 2vh;
-    margin-top: 2vh; 
-  
-
-}
-
-.button{
-    margin-left: 90%;
- width: 40px;
-   height: auto; 
-border-radius: 2vh;
-    margin-top: 6vh; 
-
-}
-
-
-.buttoni img{
-      width: 60px; 
-border-radius: 4vh;
-    
-}
-
-.buttoni{
-    margin-left: 80%;
- width: 90px; 
- height: auto;
-border-radius: 10vh;
- margin-top: -10vh; 
-   
-}
-
-
-.buttong img{
-      width: 60px; 
-border-radius: 4vh;
-    
-}
-
-.buttong{
-    margin-left: 70%;
- width: 90px; 
- height: auto;
-border-radius: 10vh;
- margin-top: -9vh; 
-   
-}
-.buttoneu img{
-    width: 60px; 
-border-radius: 4vh;
-}
-
-.buttoneu{
-    margin-left: 4%;  
- width: 90px; 
- height: auto;
-border-radius: 10vh;
- margin-top: -9vh;
+    .eu img {
+        margin-top: 5%;
+    }
 }
